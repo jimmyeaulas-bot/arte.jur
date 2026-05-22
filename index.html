@@ -76,15 +76,23 @@
   <!-- ==========================================
        TELA DE LOGIN / BOAS-VINDAS
        ========================================== -->
-  <div id="login-screen" class="min-h-screen flex items-center justify-center p-4 bg-slate-100 dark:bg-slate-950 transition-colors duration-200">
-    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-700 space-y-6">
+  <div id="login-screen" class="min-h-screen flex items-center justify-center p-4 bg-slate-100 dark:bg-slate-950 transition-colors duration-200 relative">
+    
+    <!-- Botão Flutuante de Alternar Tema na Tela de Login -->
+    <div class="absolute top-4 right-4 z-50">
+      <button onclick="toggleDarkMode()" class="theme-toggle-btn px-3 py-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm transition-colors duration-200 flex items-center gap-1.5 text-xs font-semibold bg-white dark:bg-slate-850">
+        <i class="fa-solid fa-moon"></i> <span class="hidden sm:inline">Modo Escuro</span>
+      </button>
+    </div>
+
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-700 space-y-6 transition-colors duration-200">
       
       <div class="text-center space-y-2">
         <div class="w-14 h-14 bg-red-700 text-white rounded-2xl flex items-center justify-center font-bold text-2xl mx-auto shadow-md">
           E
         </div>
-        <h2 class="text-xl font-extrabold text-slate-950 dark:text-white">Portal de Arte Etec Botucatu</h2>
-        <p class="text-xs text-slate-500 dark:text-slate-400">Trilha de Aprendizagem de Arte (2º e 3º Anos)</p>
+        <h2 class="text-xl font-extrabold text-slate-955 dark:text-white">Portal de Arte Etec Botucatu</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Trilha de Aprendizagem de Arte (1º Ano Serviços Jurídicos)</p>
       </div>
 
       <!-- Aviso Importante de Memória -->
@@ -153,7 +161,7 @@
             </div>
             <div>
               <h1 id="user-greeting-title" class="text-sm font-bold text-slate-900 dark:text-white tracking-tight">Olá, Aluno!</h1>
-              <p class="text-xs text-slate-500 dark:text-slate-400">Etec Botucatu • Arte</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Etec Botucatu • 1º Ano Serviços Jurídicos</p>
             </div>
           </div>
           
@@ -179,9 +187,8 @@
 
         <!-- Controles de Acessibilidade/Utilidades Desktop -->
         <div class="hidden sm:flex items-center gap-3">
-          <button onclick="toggleDarkMode()" class="px-3 py-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-xs font-medium flex items-center gap-2 border border-slate-200 dark:border-slate-600">
-            <span class="dark:hidden flex items-center gap-1.5"><i class="fa-solid fa-moon"></i> Modo Escuro</span>
-            <span class="hidden dark:flex items-center gap-1.5"><i class="fa-solid fa-sun"></i> Modo Claro</span>
+          <button onclick="toggleDarkMode()" class="theme-toggle-btn px-3 py-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-xs font-medium flex items-center gap-2 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 transition-colors duration-200">
+            <i class="fa-solid fa-moon"></i> <span class="hidden sm:inline">Modo Escuro</span>
           </button>
           <button onclick="handleLogout()" class="px-3 py-1.5 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white text-xs font-medium flex items-center gap-1.5">
             <i class="fa-solid fa-right-from-bracket"></i> Sair
@@ -217,7 +224,7 @@
                 <option value="9">Aula 9</option>
                 <option value="10">Aula 10</option>
               </select>
-              <button onclick="handleBypassFromSidebar()" class="px-2.5 py-1 bg-slate-200 dark:bg-slate-600 text-slate-700 dark:text-slate-200 rounded text-xs font-semibold hover:bg-slate-300">
+              <button onclick="handleBypassFromSidebar()" class="px-2.5 py-1 bg-slate-200 dark:bg-slate-600 text-slate-700 dark:text-slate-200 rounded text-xs font-semibold hover:bg-slate-300 transition">
                 Saltar
               </button>
             </div>
@@ -277,14 +284,14 @@
       <div class="w-14 h-14 bg-blue-100 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
         <i class="fa-solid fa-stamp"></i>
       </div>
-      <h3 class="text-base font-bold text-slate-950 dark:text-white mb-2">Vale 1 Visto!</h3>
-      <p class="text-xs text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">Apresente seu caderno físico de Arte ao professor agora para validar a cópia de conteúdo e liberar seu progresso de aula.</p>
+      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Vale 1 Visto!</h3>
+      <p class="text-xs text-slate-600 dark:text-slate-450 mb-6 leading-relaxed">Apresente seu caderno físico de Arte ao professor agora para validar a cópia de conteúdo e liberar seu progresso de aula.</p>
       <div class="flex gap-3 justify-center">
         <button onclick="closeVistoModal(false)" class="px-4 py-2 border border-slate-200 dark:border-slate-600 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750 transition bg-white dark:bg-slate-700">
           Ainda copiando
         </button>
         <button onclick="closeVistoModal(true)" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow transition">
-          Professor deu o visto
+          Valide seu Visto com o Prof.
         </button>
       </div>
     </div>
@@ -342,7 +349,7 @@
           },
           {
             title: "2. Signos, Símbolos e Códigos",
-            text: "Para nos comunicarmos (na arte ou na vida), usamos elements representativos:",
+            text: "Para nos comunicarmos (na arte ou na vida), usamos elementos representativos:",
             list: [
               "<strong>Signo:</strong> É a unidade básica de sentido. Qualquer coisa que representa outra coisa. Ex: Fumaça é signo de fogo.",
               "<strong>Símbolo:</strong> É um signo que possui um significado <em>convencionado culturalmente</em>, muitas vezes profundo. Ex: A constelação de Escorpião no céu (estrelas reais) ganhou, na <strong>astrologia</strong> (Babilônia/Grécia), o <strong>símbolo</strong> do escorpião para representar intensidade e transformação. O símbolo não é a coisa real, é a ideia.",
@@ -359,7 +366,7 @@
           {
             type: "exemplo",
             title: "Exemplo Prático (Astrologia e Código)",
-            content: "Pense no Zodíaco. O desenho simplificado de chifres (\\(\\Upsilon\\)) é um <strong>Signo</strong> gráfico. Culturalmente, ele foi transformado no <strong>Símbolo</strong> do signo de Áries. Quando juntamos os 12 símbolos, os planetas e as casas em um Mapa Astral, com regras de leitura para prever comportamentos, criamos um <strong>Código</strong>. A arte usa esse mesmo processo para codificar sentimentos em quadros e músicas."
+            content: "Pense no Zodíaco. O desenho simplificado de chifres (\\(\\Upsilon\\)) é um <strong>Signo</strong> gráfico. Culturalmente, ele foi transformado no <strong>Símbolo</strong> do signo de Áries. Quando juntamos os 12 símbolos, os planetas e as casas em um Mapa Astral, com regras de leitura para prever comportamentos, criamos um <strong>Código</strong>. A arte usa esse mesmo processo para codificar sentimentos in quadros e músicas."
           },
           {
             type: "dica",
@@ -616,7 +623,7 @@
         paraCaderno: [
           {
             title: "1. A Dramaturgia e a Ação Física",
-            text: "A linguagem teatral tem como base fundamental o Ator, a Atriz e a <strong>Dramaturgia</strong> (o conjunto das ações e o texto da peça). No século XX, o russo <strong>Stanislávski</strong> codificou o trabalho do actor através das <strong>Ações Físicas</strong> (Moderna, pág. 86).",
+            text: "A linguagem teatral tem como base fundamental o Ator, a Atriz e a <strong>Dramaturgia</strong> (o conjunto das ações e o texto da peça). No século XX, o russo <strong>Stanislávski</strong> codificou o trabalho do ator através das <strong>Ações Físicas</strong> (Moderna, pág. 86).",
             list: [
               "<strong>Ação Física:</strong> Não é apenas se mover no palco. Toda ação precisa de um <em>Porquê</em> (motivação) e um <em>Para quê</em> (objetivo). Beber um copo d'água não é ação. Beber água devagar para \"esconder o nervosismo da polícia\" é uma Ação Física Teatral."
             ]
@@ -661,7 +668,7 @@
           },
           {
             title: "2. Teatro Épico e os Bastidores da Cena",
-            text: "O encenador alemão <strong>Bertolt Brecht</strong> criou o <strong>Teatro Épico</strong>. Ele detestava a ideia de que o público ficasse passivo, hipnotizado ou chorando (Escapismo).",
+            text: "O encenador alemão <strong>Bertolt Brecht</strong> criou o <strong>Teatro Épico</strong>. Ele detestava a idea de que o público ficasse passivo, hipnotizado ou chorando (Escapismo).",
             list: [
               "<strong>Efeito de Distanciamento (Estranhamento):</strong> Brecht usava códigos para lembrar as pessoas que \"Isso é só um teatro, a vida real você tem que mudar lá fora\". Ele deixava a iluminação à mostra, usava placas e cartazes e fazia os atores falarem direto com a plateia (quebra da 4ª parede)."
             ]
@@ -732,13 +739,14 @@
 
     // --- INICIALIZAÇÃO DA SESSÃO ---
     function initApp() {
-      // Tema
+      // Tema inicial
       const savedTheme = localStorage.getItem('etec_arte_theme') || 'light';
       if (savedTheme === 'dark') {
         document.documentElement.classList.add('dark');
       } else {
         document.documentElement.classList.remove('dark');
       }
+      updateThemeIcons();
 
       // Sessões (Gamificação)
       if (!sessionStorage.getItem('etec_session_counted')) {
@@ -748,7 +756,7 @@
         sessionStorage.setItem('etec_session_counted', 'true');
       }
 
-      // Correção da Persistência de Nome (Sempre apresenta tela de login pré-preenchida para segurança em labs compartilhados)
+      // Sempre apresenta tela de login pré-preenchida para segurança em computadores de labs compartilhados
       showLoginScreen();
     }
 
@@ -756,7 +764,7 @@
       document.getElementById('login-screen').classList.remove('hidden');
       document.getElementById('app-screen').classList.add('hidden');
       
-      // PERSISTÊNCIA DE PREENCHIMENTO DO INPUT DE LOGIN
+      // Persistência de nome no input de login
       const storedName = localStorage.getItem('etec_arte_aluno_name');
       const nameInput = document.getElementById('aluno-name-input');
       if (storedName && nameInput) {
@@ -893,7 +901,6 @@
 
     function handleLogout() {
       if (confirm("Deseja mesmo sair? Seu progresso continuará salvo neste aparelho.")) {
-        // Preserva o nome no LocalStorage para pré-preenchimento ao redirecionar
         showLoginScreen();
       }
     }
@@ -908,29 +915,33 @@
       classesData.forEach((cls, idx) => {
         const state = classStates[idx];
         const isActive = idx === currentClassIndex;
+        const isVistoObrigatorio = cls.id >= 3;
         
         let statusIcon = '<i class="fa-solid fa-lock text-slate-300 dark:text-slate-600"></i>';
-        let bgStyle = 'bg-slate-50 dark:bg-slate-900 text-slate-400 dark:text-slate-600 border-transparent cursor-not-allowed';
+        let bgStyle = 'bg-slate-50 dark:bg-slate-900 text-slate-400 dark:text-slate-650 border-transparent cursor-not-allowed';
         let clickEvent = '';
 
         if (state.completed) {
           statusIcon = '<i class="fa-solid fa-circle-check text-emerald-500"></i>';
           bgStyle = isActive 
             ? 'bg-red-50/80 dark:bg-red-950/40 text-red-950 dark:text-red-200 font-semibold border-red-700 shadow-sm border-l-4' 
-            : 'bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-300 border-l-4 border-slate-300 dark:border-slate-600';
+            : 'bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border-l-4 border-slate-300 dark:border-slate-600';
           clickEvent = `onclick="changeClass(${idx})"`;
         } else if (state.unlocked) {
           statusIcon = '<i class="fa-solid fa-circle-play text-red-600 animate-pulse"></i>';
           bgStyle = isActive 
             ? 'bg-red-50 dark:bg-red-950/40 text-red-950 dark:text-red-200 font-semibold border-red-700 shadow-sm border-l-4' 
-            : 'bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-300 border-l-4 border-transparent';
+            : 'bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border-l-4 border-transparent';
           clickEvent = `onclick="changeClass(${idx})"`;
         }
 
         html += `
           <button ${clickEvent} class="w-full text-left p-3 rounded-lg text-xs transition duration-200 border border-slate-100 dark:border-slate-700 flex items-center justify-between gap-2 ${bgStyle}">
             <div class="flex flex-col">
-              <span class="font-bold">Bimestre ${cls.bimestre} • Aula ${cls.id}</span>
+              <span class="font-bold">
+                Aula ${cls.id} 
+                ${isVistoObrigatorio ? '<span class="text-[9px] bg-amber-500 text-white dark:bg-amber-600 dark:text-white px-1 py-0.5 rounded ml-1 font-semibold whitespace-nowrap">Visto</span>' : ''}
+              </span>
               <span class="truncate max-w-[190px] font-normal text-slate-500 dark:text-slate-400 mt-0.5">${cls.title}</span>
             </div>
             <div class="shrink-0 text-sm">
@@ -960,7 +971,6 @@
       const cls = classesData[currentClassIndex];
       const state = classStates[currentClassIndex];
 
-      // Definições de controle das etapas
       const isStep1Active = state.step === 1;
       const isStep1Done = state.step > 1;
       const isStep2Active = state.step === 2;
@@ -968,7 +978,7 @@
       const isStep3Active = state.step === 3;
       const isStep3Done = state.step > 3 || state.completed;
 
-      // Verificação de conclusão total da trilha para gerar visualização final
+      const isVistoObrigatorio = cls.id >= 3;
       const isAllCompleted = classStates.every(c => c.completed === true);
 
       if (isAllCompleted && currentClassIndex === classesData.length - 1 && state.step === 4) {
@@ -983,11 +993,16 @@
           <div class="border-b border-slate-100 dark:border-slate-700 pb-5">
             <div class="flex flex-wrap items-center gap-2 mb-2">
               <span class="bg-red-100 dark:bg-red-950 text-red-800 dark:text-red-300 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">
-                Bimestre ${cls.bimestre} • Arte
+                1º e 2º Bimestres (Unificados)
               </span>
               <span class="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">
                 Aula ${cls.id} de 10
               </span>
+              ${isVistoObrigatorio ? `
+                <span class="bg-amber-100 dark:bg-amber-950/85 text-amber-900 dark:text-amber-300 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full flex items-center gap-1 border border-amber-200 dark:border-amber-800/40">
+                  <i class="fa-solid fa-circle-exclamation text-amber-600 dark:text-amber-400"></i> Assunto Pontuado com Visto
+                </span>
+              ` : ''}
             </div>
             <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug">
               ${cls.title}
@@ -996,21 +1011,21 @@
 
           <!-- STEPPER DA INTERFACE -->
           <div class="grid grid-cols-3 gap-2 border-b border-slate-100 dark:border-slate-700 pb-6 text-center text-xs font-semibold">
-            <div class="flex flex-col items-center gap-1.5 ${isStep1Active ? 'text-blue-600 dark:text-blue-400' : isStep1Done ? 'text-emerald-600 dark:text-emerald-450' : 'text-slate-300 dark:text-slate-600'}">
-              <div class="w-8 h-8 rounded-full flex items-center justify-center ${isStep1Active ? 'bg-blue-100 dark:bg-blue-950/40 ring-2 ring-blue-600 dark:ring-blue-450 ring-offset-2 dark:ring-offset-slate-800' : isStep1Done ? 'bg-emerald-100 dark:bg-emerald-950' : 'bg-slate-100 dark:bg-slate-700'} text-sm">
+            <div class="flex flex-col items-center gap-1.5 ${isStep1Active ? 'text-blue-600 dark:text-blue-400' : isStep1Done ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-300 dark:text-slate-650'}">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center ${isStep1Active ? 'bg-blue-100 dark:bg-blue-950/40 ring-2 ring-blue-600 dark:ring-blue-400 ring-offset-2 dark:ring-offset-slate-800' : isStep1Done ? 'bg-emerald-100 dark:bg-emerald-950' : 'bg-slate-100 dark:bg-slate-700'} text-sm">
                 ${isStep1Done ? '<i class="fa-solid fa-check"></i>' : '1'}
               </div>
               <span class="hidden sm:inline">Teoria Caderno</span>
               <span class="sm:hidden text-[10px]">Cópia</span>
             </div>
-            <div class="flex flex-col items-center gap-1.5 ${isStep2Active ? 'text-amber-600 dark:text-amber-400' : isStep2Done ? 'text-emerald-600 dark:text-emerald-450' : 'text-slate-300 dark:text-slate-600'}">
-              <div class="w-8 h-8 rounded-full flex items-center justify-center ${isStep2Active ? 'bg-amber-100 dark:bg-amber-950/40 ring-2 ring-amber-500 dark:ring-amber-400 ring-offset-2 dark:ring-offset-slate-800' : isStep2Done ? 'bg-emerald-100 dark:bg-emerald-950' : 'bg-slate-100 dark:bg-slate-700'} text-sm">
+            <div class="flex flex-col items-center gap-1.5 ${isStep2Active ? 'text-amber-600 dark:text-amber-400' : isStep2Done ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-300 dark:text-slate-650'}">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center ${isStep2Active ? 'bg-amber-100 dark:bg-amber-950/40 ring-2 ring-amber-500 dark:ring-amber-450 ring-offset-2 dark:ring-offset-slate-800' : isStep2Done ? 'bg-emerald-100 dark:bg-emerald-950' : 'bg-slate-100 dark:bg-slate-700'} text-sm">
                 ${isStep2Done ? '<i class="fa-solid fa-check"></i>' : '2'}
               </div>
               <span class="hidden sm:inline">Análise \& Leituras</span>
               <span class="sm:hidden text-[10px]">Análise</span>
             </div>
-            <div class="flex flex-col items-center gap-1.5 ${isStep3Active ? 'text-purple-600 dark:text-purple-400' : isStep3Done ? 'text-emerald-600 dark:text-emerald-450' : 'text-slate-300 dark:text-slate-600'}">
+            <div class="flex flex-col items-center gap-1.5 ${isStep3Active ? 'text-purple-600 dark:text-purple-400' : isStep3Done ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-300 dark:text-slate-650'}">
               <div class="w-8 h-8 rounded-full flex items-center justify-center ${isStep3Active ? 'bg-purple-100 dark:bg-purple-950/40 ring-2 ring-purple-500 dark:ring-purple-400 ring-offset-2 dark:ring-offset-slate-800' : isStep3Done ? 'bg-emerald-100 dark:bg-emerald-950' : 'bg-slate-100 dark:bg-slate-700'} text-sm">
                 ${isStep3Done ? '<i class="fa-solid fa-check"></i>' : '3'}
               </div>
@@ -1025,13 +1040,13 @@
           <section class="space-y-4">
             <div class="flex items-center gap-2">
               <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs font-bold">1</span>
-              <h3 class="text-base font-bold text-slate-850 dark:text-slate-200">Teoria Obrigatória para o Caderno</h3>
+              <h3 class="text-base font-bold text-slate-800 dark:text-slate-200">Teoria Obrigatória para o Caderno</h3>
             </div>
             
             <div class="space-y-6">
               ${cls.paraCaderno.map(box => `
                 <div class="bg-sky-50/50 dark:bg-sky-950/15 border-l-4 border-sky-600 dark:border-sky-500 rounded-r-xl p-5 shadow-sm space-y-3">
-                  <h4 class="text-sky-950 dark:text-sky-300 font-bold text-sm flex items-center gap-2">
+                  <h4 class="text-sky-900 dark:text-sky-300 font-bold text-sm flex items-center gap-2">
                     <i class="fa-solid fa-book-open text-sky-600 dark:text-sky-400 text-xs"></i>
                     ${box.title} <span class="text-xs font-normal text-sky-700 dark:text-sky-400">(Para o Caderno <i class="fa-solid fa-check"></i>)</span>
                   </h4>
@@ -1044,7 +1059,7 @@
                   
                   ${box.extraBox ? `
                     <div class="bg-emerald-50/50 dark:bg-emerald-950/20 border-2 border-dashed border-emerald-500 rounded-xl p-4 my-3 text-xs">
-                      <div class="text-emerald-950 dark:text-emerald-350">${box.extraBox.content}</div>
+                      <div class="text-emerald-900 dark:text-emerald-300">${box.extraBox.content}</div>
                     </div>
                   ` : ''}
                 </div>
@@ -1055,9 +1070,9 @@
             <div class="pt-4 flex justify-end">
               ${isStep1Active 
                 ? `<button onclick="openVistoModal()" class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow hover:shadow-md transition flex items-center justify-center gap-2">
-                     <i class="fa-solid fa-stamp"></i> Concluí a cópia da teoria
+                     <i class="fa-solid fa-stamp"></i> Leve para o Prof. dar Visto
                    </button>`
-                : `<div class="w-full sm:w-auto px-4 py-2 bg-emerald-50 dark:bg-emerald-950/25 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/40 rounded-lg text-xs font-semibold flex items-center justify-center gap-2">
+                : `<div class="w-full sm:w-auto px-4 py-2 bg-emerald-50 dark:bg-emerald-950/25 text-emerald-850 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/40 rounded-lg text-xs font-semibold flex items-center justify-center gap-2">
                      <i class="fa-solid fa-circle-check text-emerald-500"></i> Cópia realizada e visto virtual validado
                    </div>`
               }
@@ -1071,14 +1086,14 @@
             ${!isStep1Done ? `
               <div class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/60 dark:bg-slate-800/80 backdrop-blur-[1px] rounded-xl text-center p-4">
                 <i class="fa-solid fa-lock text-slate-400 dark:text-slate-600 text-3xl mb-2"></i>
-                <h4 class="text-xs font-bold text-slate-850 dark:text-slate-200">Etapa Bloqueada</h4>
+                <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200">Etapa Bloqueada</h4>
                 <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1 max-w-xs">Valide o visto de cópia da teoria acima com o professor para liberar as análises obrigatórias.</p>
               </div>
             ` : ''}
             
             <div class="flex items-center gap-2">
               <span class="w-6 h-6 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xs font-bold">2</span>
-              <h3 class="text-base font-bold text-slate-850 dark:text-slate-200">Leituras Obrigatórias (Análise de Obras)</h3>
+              <h3 class="text-base font-bold text-slate-800 dark:text-slate-200">Leituras Obrigatórias (Análise de Obras)</h3>
             </div>
 
             <div class="space-y-6">
@@ -1087,8 +1102,8 @@
                 const boxColorClass = leitura.type === 'exemplo' 
                   ? 'bg-fuchsia-50/50 dark:bg-fuchsia-950/15 border-l-4 border-fuchsia-600 dark:border-fuchsia-500 rounded-r-xl' 
                   : 'bg-amber-50/50 dark:bg-amber-950/15 border-l-4 border-amber-500 dark:border-amber-500 rounded-r-xl';
-                const titleColorClass = leitura.type === 'exemplo' ? 'text-fuchsia-950 dark:text-fuchsia-300' : 'text-amber-950 dark:text-amber-300';
-                const iconClass = leitura.type === 'exemplo' ? 'fa-solid fa-chart-line text-fuchsia-600 dark:text-fuchsia-450' : 'fa-solid fa-lightbulb text-amber-500 dark:text-amber-450';
+                const titleColorClass = leitura.type === 'exemplo' ? 'text-fuchsia-900 dark:text-fuchsia-300' : 'text-amber-900 dark:text-amber-300';
+                const iconClass = leitura.type === 'exemplo' ? 'fa-solid fa-chart-line text-fuchsia-600 dark:text-fuchsia-400' : 'fa-solid fa-lightbulb text-amber-500 dark:text-amber-400';
 
                 return `
                   <div class="${boxColorClass} p-5 shadow-sm space-y-3 transition-colors duration-200">
@@ -1099,7 +1114,7 @@
                     <div class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">${leitura.content}</div>
                     
                     <div class="mt-4 pt-3 border-t border-slate-200/50 dark:border-slate-700/60">
-                      <label class="flex items-start gap-2.5 cursor-pointer text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white select-none">
+                      <label class="flex items-start gap-2.5 cursor-pointer text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white select-none">
                         <input type="checkbox" 
                                onchange="toggleReading(${currentClassIndex}, ${lIdx})" 
                                ${isChecked ? 'checked' : ''} 
@@ -1136,14 +1151,14 @@
             ${!isStep2Done ? `
               <div class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/60 dark:bg-slate-800/80 backdrop-blur-[1px] rounded-xl text-center p-4">
                 <i class="fa-solid fa-lock text-slate-400 dark:text-slate-600 text-3xl mb-2"></i>
-                <h4 class="text-xs font-bold text-slate-850 dark:text-slate-200">Etapa Bloqueada</h4>
-                <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1 max-w-xs">Você precisa certificar a leitura obrigatória de todos os materiais de apoio para ver os exercícios.</p>
+                <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200">Etapa Bloqueada</h4>
+                <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1 max-w-xs">Você precisa certificar a leitura obrigatória de todos os materiais de apoio antes de ver os exercícios.</p>
               </div>
             ` : ''}
 
             <div class="flex items-center gap-2">
               <span class="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-950 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xs font-bold">3</span>
-              <h3 class="text-base font-bold text-slate-850 dark:text-slate-200">Exercícios da Aula</h3>
+              <h3 class="text-base font-bold text-slate-800 dark:text-slate-200">Exercícios da Aula</h3>
             </div>
 
             <div class="space-y-4 bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-700 p-5 rounded-xl transition-colors duration-200">
@@ -1163,7 +1178,7 @@
                          </button>`
                       : `
                         <div class="w-full flex flex-col sm:flex-row justify-between items-center bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800/50 p-4 rounded-lg gap-3 text-center sm:text-left">
-                          <div class="text-[11px] sm:text-xs text-emerald-800 dark:text-emerald-350">
+                          <div class="text-[11px] sm:text-xs text-emerald-800 dark:text-emerald-300">
                             <span class="font-bold flex items-center justify-center sm:justify-start gap-1">
                               <i class="fa-solid fa-lightbulb text-emerald-500"></i> Autocorreção Ativa!
                             </span> 
@@ -1183,7 +1198,7 @@
                       <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto text-xl shadow-sm">
                         <i class="fa-solid fa-trophy"></i>
                       </div>
-                      <h4 class="text-sm font-bold text-slate-855 dark:text-slate-100">Aula 100% Concluída!</h4>
+                      <h4 class="text-sm font-bold text-slate-800 dark:text-slate-100">Aula 100% Concluída!</h4>
                       <p class="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">Visto do caderno assegurado e verificação de gabarito realizada com sucesso.</p>
                       
                       ${currentClassIndex < classesData.length - 1 
@@ -1221,7 +1236,7 @@
               <i class="fa-solid fa-circle-exclamation text-lg animate-bounce"></i> 
               Atenção: Aviso de Visto de Caderno
             </h3>
-            <p class="text-xs sm:text-sm text-red-700 dark:text-red-450 leading-relaxed font-semibold">
+            <p class="text-xs sm:text-sm text-red-700 dark:text-red-400 leading-relaxed font-semibold">
               ⚠️ Não se esqueça de levar o caderno físico completo de Arte para o professor avaliar e oficializar seus vistos. Sem a assinatura do professor em sala de aula, sua pontuação bimestral final não será validada no sistema escolar!
             </p>
           </div>
@@ -1247,7 +1262,7 @@
             </div>
 
             <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-lg mx-auto leading-relaxed">
-              Concluiu com sucesso a totalidade da <strong>Trilha de Cópia, Estudos e Exercícios Críticos de Arte</strong> para o 2º e 3º Anos do Ensino Técnico Integrado ao Médio.
+              Concluiu com sucesso a totalidade da <strong>Trilha de Cópia, Estudos e Exercícios Críticos de Arte</strong> para a habilitação profissional do <strong>1º Ano Serviços Jurídicos</strong>.
             </p>
 
             <!-- Estatísticas e Detalhes de Registro -->
@@ -1273,8 +1288,8 @@
                 <span class="text-[10px] text-slate-400 dark:text-slate-500 block">Assinatura do Aluno</span>
               </div>
               <div class="text-center">
-                <div class="text-xs font-serif italic text-slate-600 dark:text-slate-400 font-semibold mb-1">Etec Botucatu</div>
-                <span class="text-[10px] text-slate-400 dark:text-slate-500 block">Coordenação e Docência de Arte</span>
+                <div class="text-xs font-serif italic text-slate-600 dark:text-slate-300 font-bold mb-1">Prof. André</div>
+                <span class="text-[10px] text-slate-400 dark:text-slate-500 block">Docência de Arte • Etec Botucatu</span>
               </div>
             </div>
 
@@ -1282,7 +1297,7 @@
 
           <!-- Ações do Certificado -->
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button onclick="confirmResetProgress()" class="px-5 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-750 transition flex items-center justify-center gap-2">
+            <button onclick="confirmResetProgress()" class="px-5 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2 bg-white dark:bg-slate-850">
               <i class="fa-solid fa-arrow-rotate-left"></i> Refazer a Trilha
             </button>
             <button onclick="printCertificate()" class="px-6 py-2.5 bg-red-700 hover:bg-red-800 text-white rounded-lg text-xs font-bold shadow hover:shadow-md transition flex items-center justify-center gap-2">
@@ -1403,6 +1418,19 @@
         document.documentElement.classList.add('dark');
         localStorage.setItem('etec_arte_theme', 'dark');
       }
+      updateThemeIcons();
+    }
+
+    function updateThemeIcons() {
+      const isDark = document.documentElement.classList.contains('dark');
+      const buttons = document.querySelectorAll('.theme-toggle-btn');
+      buttons.forEach(btn => {
+        if (isDark) {
+          btn.innerHTML = '<i class="fa-solid fa-sun text-amber-400"></i> <span class="hidden sm:inline">Modo Claro</span>';
+        } else {
+          btn.innerHTML = '<i class="fa-solid fa-moon"></i> <span class="hidden sm:inline">Modo Escuro</span>';
+        }
+      });
     }
 
     // Impressão Otimizada
