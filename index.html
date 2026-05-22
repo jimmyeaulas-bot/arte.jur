@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trilha de Aprendizagem - Arte | Etec Botucatu</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts (Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    /* Estilização suave de transições */
+    .fade-enter {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .fade-enter-active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
+
+  <!-- BARRA DE PROGRESSO FIXA NO TOPO -->
+  <header class="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-red-700 text-white rounded-lg flex items-center justify-center font-bold text-lg shadow-sm">
+          E
+        </div>
+        <div>
+          <h1 class="text-sm font-bold text-slate-900 tracking-tight">Etec Botucatu</h1>
+          <p class="text-xs text-slate-500">Arte — 2º e 3º Anos (Bimestres 1 e 2)</p>
+        </div>
+      </div>
+      
+      <!-- Indicador Geral de Progresso -->
+      <div class="w-full sm:w-72 flex items-center gap-3">
+        <div class="flex-1 bg-slate-100 rounded-full h-2.5 overflow-hidden">
+          <div id="global-progress-bar" class="bg-red-600 h-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+        <span id="global-progress-text" class="text-xs font-semibold text-slate-600 whitespace-nowrap">0% Concluído</span>
+      </div>
+
+      <!-- Menu Mobile Toggle -->
+      <button onclick="toggleMobileMenu()" class="sm:hidden text-slate-600 hover:text-slate-900 focus:outline-none p-1">
+        <i class="fa-solid fa-bars text-xl"></i>
+      </button>
+    </div>
+  </header>
+
+  <div class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-6 relative">
+    
+    <!-- LATERAL - SELETOR DE AULAS (DESKTOP) -->
+    <aside id="sidebar-menu" class="hidden lg:block w-full lg:w-80 shrink-0 bg-white border border-slate-200 rounded-xl p-4 shadow-sm h-fit sticky top-24">
+      <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 px-2">Trilha de Aprendizagem</h2>
+      <nav class="space-y-1" id="class-list-navigation">
+        <!-- Gerado dinamicamente via JS -->
+      </nav>
+      
+      <!-- Botão para reiniciar progresso -->
+      <div class="mt-6 pt-4 border-t border-slate-100 px-2">
+        <button onclick="confirmResetProgress()" class="text-xs text-slate-400 hover:text-red-600 transition flex items-center gap-2">
+          <i class="fa-solid fa-arrow-rotate-left"></i> Reiniciar meu progresso
+        </button>
+      </div>
+    </aside>
+
+    <!-- MENU LATERAL MOBILE (DIAGRAMA SLIDEOUT / FLOATING) -->
+    <div id="mobile-sidebar" class="fixed inset-0 z-50 bg-slate-950/40 backdrop-blur-sm hidden transition-opacity duration-300">
+      <div class="absolute left-0 top-0 bottom-0 w-72 bg-white p-5 shadow-xl flex flex-col h-full">
+        <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+          <span class="font-bold text-slate-900">Lista de Aulas</span>
+          <button onclick="toggleMobileMenu()" class="text-slate-500 hover:text-slate-800">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+        <nav class="flex-1 overflow-y-auto space-y-1" id="class-list-navigation-mobile">
+          <!-- Gerado dinamicamente via JS -->
+        </nav>
+        <div class="mt-auto pt-4 border-t border-slate-100">
+          <button onclick="confirmResetProgress()" class="w-full py-2 text-xs text-center text-slate-400 hover:text-red-600 transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-arrow-rotate-left"></i> Reiniciar meu progresso
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="flex-1 min-w-0" id="main-content">
+      <!-- O conteúdo ativo da aula será inserido aqui via JS -->
+    </main>
+
+  </div>
+
+  <!-- RODAPÉ -->
+  <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+    <div class="max-w-7xl mx-auto px-4 text-center sm:px-6 lg:px-8">
+      <p class="text-xs text-slate-500">Desenvolvido para apoio pedagógico • Consultoria em Ensino de Arte • Etec Botucatu</p>
+    </div>
+  </footer>
+
+  <!-- MODAL: VALE VISTO (ETAPA 1) -->
+  <div id="modal-visto" class="fixed inset-0 z-50 bg-slate-950/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-6 text-center transform transition-all scale-95 border border-slate-100">
+      <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+        <i class="fa-solid fa-stamp"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900 mb-2">Vale 1 Visto!</h3>
+      <p class="text-sm text-slate-600 mb-6">Apresente seu caderno de Arte ao professor para receber o visto físico pela cópia da teoria antes de prosseguir.</p>
+      <div class="flex gap-3 justify-center">
+        <button onclick="closeVistoModal(false)" class="px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 transition">
+          Ainda não copiei tudo
+        </button>
+        <button onclick="closeVistoModal(true)" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium shadow-sm transition">
+          Ok, professor já deu o visto
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: GABARITO (ETAPA 3) -->
+  <div id="modal-gabarito" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full flex flex-col max-h-[85vh] border border-slate-100">
+      <div class="p-5 border-b border-slate-200 bg-slate-50 rounded-t-xl flex items-center justify-between">
+        <div class="flex items-center gap-2 text-slate-800">
+          <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
+          <h3 class="font-bold text-slate-900">Folha de Gabarito Integrada</h3>
+        </div>
+        <button onclick="closeGabaritoModal(false)" class="text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto flex-1 text-slate-700 leading-relaxed space-y-4" id="gabarito-modal-content">
+        <!-- Texto do gabarito gerado via JS -->
+      </div>
+      <div class="p-4 border-t border-slate-200 bg-slate-50 rounded-b-xl flex justify-between items-center">
+        <p class="text-xs text-slate-500">Analise sua resposta crítica com base no gabarito oficial.</p>
+        <div class="flex gap-2">
+          <button onclick="closeGabaritoModal(false)" class="px-4 py-2 border border-slate-200 rounded-lg text-xs font-medium text-slate-600 bg-white hover:bg-slate-50 transition">
+            Voltar para a Aula
+          </button>
+          <button onclick="closeGabaritoModal(true)" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow-sm transition">
+            Finalizar Aula e Salvar <i class="fa-solid fa-chevron-right ml-1"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT: BANCO DE DADOS E LÓGICA DE ESTADOS -->
+  <script>
+    // --- DATABASE DAS AULAS (Convertido do LaTeX) ---
+    const classesData = [
+      {
+        id: 1,
+        title: "As 6 Dimensões da Arte e a Tríade: Signo, Símbolo e Código",
+        bimestre: 1,
+        paraCaderno: [
+          {
+            title: "1. As Seis Dimensões do Conhecimento em Arte",
+            text: "A Arte não é apenas \"fazer um desenho bonito\". Ela é uma área de conhecimento complexa dividida em 6 dimensões inseparáveis:",
+            list: [
+              "<strong>Criação:</strong> O ato de fazer, de colocar a \"mão na massa\" de forma intencional.",
+              "<strong>Crítica:</strong> A capacidade de julgar, analisar e contextualizar uma obra.",
+              "<strong>Estesia:</strong> A experiência sensível, o \"frio na barriga\", a emoção que a obra provoca no corpo.",
+              "<strong>Expressão:</strong> A exteriorização de sentimentos, ideias e identidades do artista.",
+              "<strong>Fruição:</strong> O ato de apreciar, de \"degustar\" a obra de arte com atenção e entrega.",
+              "<strong>Reflexão:</strong> O processo de pensar sobre o que a arte significa para a sociedade e para você."
+            ]
+          },
+          {
+            title: "2. Signos, Símbolos e Códigos",
+            text: "Para nos comunicarmos (na arte ou na vida), usamos elementos representativos:",
+            list: [
+              "<strong>Signo:</strong> É a unidade básica de sentido. Qualquer coisa que representa outra coisa. Ex: Fumaça é signo de fogo.",
+              "<strong>Símbolo:</strong> É um signo que possui um significado <em>convencionado culturalmente</em>, muitas vezes profundo. Ex: A constelação de Escorpião no céu (estrelas reais) ganhou, na <strong>astrologia</strong> (Babilônia/Grécia), o <strong>símbolo</strong> do escorpião para representar intensidade e transformação. O símbolo não é a coisa real, é a ideia.",
+              "<strong>Código:</strong> É um conjunto organizado de signos e regras. A gramática, a partitura musical e as placas de trânsito são códigos."
+            ],
+            extraBox: {
+              type: "formula",
+              title: "Mnemônico das 6 Dimensões",
+              content: "<strong>Mnemônico das 6 Dimensões:</strong><br><div class='text-center text-lg my-2'>\\(\\textbf{C C E E F R}\\)</div>(<strong class='text-red-700'>C</strong>achorro <strong class='text-red-700'>C</strong>orre <strong class='text-red-700'>E</strong> <strong class='text-red-700'>E</strong>sconde <strong class='text-red-700'>F</strong>azendo <strong class='text-red-700'>R</strong>uído = <strong>C</strong>riação, <strong>C</strong>rítica, <strong>E</strong>stesia, <strong>E</strong>xpressão, <strong>F</strong>ruição, <strong>R</strong>eflexão)"
+            }
+          }
+        ],
+        leituras: [
+          {
+            type: "exemplo",
+            title: "Exemplo Prático (Astrologia e Código)",
+            content: "Pense no Zodíaco. O desenho simplificado de chifres (\\(\\Upsilon\\)) é um <strong>Signo</strong> gráfico. Culturalmente, ele foi transformado no <strong>Símbolo</strong> do signo de Áries. Quando juntamos os 12 símbolos, os planetas e as casas em um Mapa Astral, com regras de leitura para prever comportamentos, criamos um <strong>Código</strong>. A arte usa esse mesmo processo para codificar sentimentos em quadros e músicas."
+          },
+          {
+            type: "dica",
+            title: "Dica de Mestre / Amplie seu Repertório",
+            content: "<strong>Referências Complementares:</strong> Livro Moderna Plus, pág. 16 e 17.<br><strong>Vídeo YouTube:</strong> \"Semiótica de Peirce em 5 Minutos\" (Para aprofundar Signo e Ícone)."
+          }
+        ],
+        exercicios: [
+          "<strong>(Fácil)</strong> Qual das 6 dimensões da arte está ligada à emoção física e sensorial que sentimos ao ouvir uma música impactante?",
+          "<strong>(Fácil)</strong> Diferencie, em uma linha, Signo de Código.",
+          "<strong>(Fácil)</strong> A aliança de casamento no dedo de uma pessoa é um signo, um símbolo ou um código? Justifique.",
+          "<strong>(Intermediário)</strong> Na leitura de um Mapa Astral, por que não podemos dizer que se trata apenas de \"símbolos soltos\", mas sim de um \"código\" interpretativo?",
+          "<strong>(Desafiador)</strong> Escolha uma manifestação de rua, como o <em>Slam</em> (Batalha de Poesia). Analise essa prática identificando onde ocorrem exatamente a <strong>Fruição</strong>, a <strong>Criação</strong> e a <strong>Reflexão</strong> no momento em que o poeta está com o microfone."
+        ],
+        gabarito: "<strong>Aula 1:</strong><br><strong>1.</strong> Estesia.<br><strong>2.</strong> Signo é o elemento representativo isolado; Código é a estrutura lógica e organizada desses signos.<br><strong>3.</strong> Símbolo (acordo cultural de que aliança significa compromisso).<br><strong>4.</strong> Porque não são desenhos soltos; existem regras de leitura, ângulos e posicionamento matemático conectando planetas e constelações.<br><strong>5.</strong> Fruição (Público absorvendo e sentindo o poema); Criação (Momento em que as rimas ou textos ganham vida oral); Reflexão (Impacto do tema social gerado na mente da plateia)."
+      },
+      {
+        id: 2,
+        title: "Códigos nas Artes Visuais I (Pintura, Cores e Simbolismos)",
+        bimestre: 1,
+        paraCaderno: [
+          {
+            title: "1. Elementos Formais das Artes Visuais",
+            text: "Todo desenho ou pintura no mundo começa a partir dos mesmos códigos visuais:",
+            list: [
+              "<strong>Ponto:</strong> A unidade mais simples da arte visual.",
+              "<strong>Linha:</strong> Um ponto em movimento. Define contornos e direções.",
+              "<strong>Forma:</strong> O espaço fechado por linhas (geométricas ou orgânicas).",
+              "<strong>Cor:</strong> Fenômeno óptico. Pode ser luz (<strong>RGB</strong> - Red, Green, Blue) ou pigmento (<strong>CMYK</strong> - Ciano, Magenta, Amarelo e Preto)."
+            ]
+          },
+          {
+            title: "2. Alegoria e Simbolismo na Pintura",
+            text: "Na pintura, <strong>Alegoria</strong> é quando elementos visuais (códigos) são usados para representar uma ideia abstrata (virtude, fidelidade, morte).<br><br><strong>Estudo de Caso: \"O Casal Arnolfini\" (1434) de Jan van Eyck.</strong><br>Esta pintura (Moderna Plus, pág. 74) parece apenas um retrato comum, mas é um código complexo da época:<br>- O cão aos pés: <strong>Símbolo</strong> de fidelidade.<br>- Apenas uma vela acesa no lustre: <strong>Símbolo</strong> do olho de Deus.<br>- Frutas na janela: <strong>Símbolo</strong> de riqueza (frutas eram caras na Europa)."
+          }
+        ],
+        leituras: [
+          {
+            type: "exemplo",
+            title: "O Código das Cores (Matemática Visual)",
+            content: "Nas telas de celular (Luz), as cores operam no código <strong>RGB</strong>. Cada cor vai de \\(0\\) a \\(255\\).<br><em>Código de Branco puro:</em> RGB (255, 255, 255) - Todas as luzes acesas.<br><em>Código de Preto puro:</em> RGB (0, 0, 0) - Ausência de luz.<br>Se o artista quer passar uma sensação de calor intenso (Estesia), ele maximizará o código RGB para o vermelho (255, 0, 0)."
+          }
+        ],
+        exercicios: [
+          "<strong>(Fácil)</strong> Quais são os 4 elementos básicos que compõem o código das Artes Visuais?",
+          "<strong>(Fácil)</strong> Qual a diferença fundamental entre o sistema de cores RGB e CMYK?",
+          "<strong>(Fácil)</strong> O que é uma \"Alegoria\" no contexto das artes visuais?",
+          "<strong>(Intermediário)</strong> Observando a obra \"O Casal Arnolfini\" (Livro Moderna, pág 74), se o artista tivesse removido o cachorro e a vela acesa, como isso alteraria a dimensão de \"Reflexão\" da obra para o espectador daquela época?",
+          "<strong>(Desafiador)</strong> Um designer digital precisa criar uma imagem de \"tensão e perigo\" para um game. Usando o pensamento computacional e o código RGB (onde valores vão de 0 a 255 para Red, Green, Blue), defina numericamente uma cor que ele poderia usar como fundo e justifique sua escolha psicologicamente."
+        ],
+        gabarito: "<strong>Aula 2:</strong><br><strong>1.</strong> Ponto, Linha, Forma e Cor.<br><strong>2.</strong> RGB trabalha luz de tela (celulares/PCs); CMYK trabalha pigmento/tintas (gráficas/impressoras).<br><strong>3.</strong> Usar signos visuais (figuras, objetos) para apontar para um conceito metafórico.<br><strong>4.</strong> Se a vela (Deus) e o cão (fidelidade) saem, a imagem perde o status sagrado/matrimonial moral, virando apenas um retrato banal de burgueses ostentando roupas caras.<br><strong>5.</strong> O vermelho é (255, 0, 0), psicologicamente associado ao sangue, fogo, alerta, parada, criando estesia instantânea de tensão neurológica."
+      },
+      {
+        id: 3,
+        title: "Códigos nas Artes Visuais II (Escala, Proporção e Arte Urbana)",
+        bimestre: 1,
+        paraCaderno: [
+          {
+            title: "1. Matemática da Imagem: Escala e Proporção",
+            text: "A representação do corpo e de objetos segue códigos matemáticos para gerar conforto ou incômodo visual:",
+            list: [
+              "<strong>Cânone e Proporção:</strong> Regras matemáticas. Os gregos definiram que a proporção ideal de um corpo seria equivalente a \"8 vezes a medida da sua cabeça\" (Moderna, pág. 70).",
+              "<strong>Escala:</strong> É a relação matemática entre a obra e o que ela representa. A arte hiper-realista, como as esculturas gigantes de <strong>Ron Mueck</strong> (Moderna, pág. 73), usa o aumento da <strong>escala</strong> (tamanho exagerado) mas mantém a <strong>proporção</strong> (detalhes perfeitos) para chocar (causar <em>estesia</em>)."
+            ]
+          },
+          {
+            title: "2. Arte Urbana (Street Art): O Código dos Muros",
+            text: "O espaço urbano possui seus próprios códigos de comunicação:",
+            list: [
+              "<strong>Pichação (Pixo):</strong> Código tipográfico tipicamente brasileiro. Foco na <em>caligrafia, disputa de território e exclusividade</em> (geralmente só quem é do grupo consegue ler).",
+              "<strong>Grafite:</strong> Mistura imagem e letras, focando na <em>estética, cores e comunicação com o público em geral</em>. É um código absorvido pela indústria cultural (Moderna, pág. 192 e 196).",
+              "<strong>Tags:</strong> A \"assinatura\" estilizada original que deu início ao movimento Hip-Hop em Nova York."
+            ]
+          }
+        ],
+        leituras: [
+          {
+            type: "exemplo",
+            title: "Cálculo de Proporção (O Cânone de 8 Cabeças)",
+            content: "Se um artista vai esculpir uma estátua clássica cuja cabeça mede \\(25\\) cm de altura, qual deve ser a altura total da estátua para respeitar a proporção grega?<br><div class='text-center text-lg my-2'>\\(\\text{Altura} = 8 \\times \\text{Tamanho da Cabeça} \\implies\\)</div><div class='text-center text-lg my-2'>\\(8 \\times 25\\text{cm} = 200\\text{cm}\\) (ou 2 metros).</div>"
+          },
+          {
+            type: "dica",
+            title: "Dica de Mestre / Amplie seu Repertório",
+            content: "<strong>Referências Complementares:</strong> Livro Moderna, págs. 73 (Ron Mueck) e 192 (O que dizem os muros?)."
+          }
+        ],
+        exercicios: [
+          "<strong>(Fácil)</strong> Qual a diferença conceitual entre Escala e Proporção em uma escultura?",
+          "<strong>(Fácil)</strong> Segundo a regra do Cânone Grego clássico, a altura de um corpo ideal equivale a quantas vezes o tamanho de sua cabeça?",
+          "<strong>(Fácil)</strong> Visualmente, qual a principal diferença do código usado na pichação paulista para o código usado no Grafite convencional?",
+          "<strong>(Intermediário)</strong> Se um desenhista cria uma caricatura onde o corpo mede 1 metro e a cabeça mede 50 cm, he está alterando a Escala ou a Proporção da figura humana? Justifique numericamente.",
+          "<strong>(Desafiador)</strong> Leia a página 196 do Livro (Grafite e Coletivos). Explique como a Arte Urbana subverte o código tradicional das Galerias de Arte e de que forma ela \"democratiza\" a dimensão da <em>Fruição</em> que estudamos no 1º período."
+        ],
+        gabarito: "<strong>Aula 3:</strong><br><strong>1.</strong> Escala é relação do tamanho da obra com o real (ex: ampliada); Proporção é a matemática simétrica das partes internas entre si.<br><strong>2.</strong> 8 cabeças.<br><strong>3.</strong> Pichação foca na caligrafia rústica/monocromática de difícil leitura; Grafite mescla figuras e cores visando comunicação mais direta e plástica.<br><strong>4.</strong> A Proporção. Ao colocar 50cm de cabeça em um corpo de 100cm (relação de 1 para 2), ele distorceu a regra matemática da biologia (que seria de 1 para 8).<br><strong>5.</strong> Ela leva a arte pra fora do museu (rompe a elitização de bilheterias). O transeunte comum tropeça na obra e tem a Fruição forçada diariamente no trajeto para o trabalho, subvertendo a galeria de arte convencional."
+      },
+      {
+        id: 4,
+        title: "Códigos da Música I (As Propriedades do Som)",
+        bimestre: 1,
+        paraCaderno: [
+          {
+            title: "1. A Física do Som e Seus Elementos Iniciais",
+            text: "A música é a arte de organizar sons e silêncios no tempo. O som possui 4 propriedades fundamentais (Moderna, pág. 38 e 39):",
+            list: [
+              "<strong>Altura (Frequência em Hz):</strong> Define se o som é GRAVE (baixo) ou AGUDO (alto). Em um teclado, as teclas da esquerda são graves, e da direita são agudas.",
+              "<strong>Duração:</strong> O tempo de emissão da nota (curta ou longa). Gera o Ritmo.",
+              "<strong>Intensidade (Volume em dB):</strong> É a força do som (Forte/Piano). Depende da amplitude da onda sonora.",
+              "<strong>Timbre:</strong> A \"identidade\" ou \"cor\" do som. O que diferencia um Violão de um Piano tocando exatamente a mesma nota na mesma altura."
+            ],
+            extraBox: {
+              type: "formula",
+              title: "Decodificando Partituras (Símbolos de Intensidade)",
+              content: "A música possui um código escrito (italiano) para o volume:<br><div class='my-2 flex flex-col items-center gap-1 font-mono text-sm'><div>\\(\\rightarrow \\boldsymbol{pp}\\) (pianíssimo - muito suave)</div><div>\\(\\rightarrow \\boldsymbol{p}\\) (suave)</div><div>\\(\\rightarrow \\boldsymbol{f}\\) (forte)</div><div>\\(\\rightarrow \\boldsymbol{ff}\\) (fortíssimo - muito intenso)</div></div>"
+            }
+          }
+        ],
+        leituras: [
+          {
+            type: "exemplo",
+            title: "Problema de Leitura Crítica",
+            content: "Muitas pessoas confundem \"abaixar o som\" com \"altura\". Se você aperta o botão de \"menos (-)\" no celular, você está alterando a <strong>Intensidade</strong> (volume diminui). A <strong>Altura</strong> da música (se a voz do cantor é fina ou grossa) permanece exatamente a mesma!"
+          },
+          {
+            type: "dica",
+            title: "Dica de Mestre / Amplie seu Repertório",
+            content: "<strong>Use o Celular:</strong> Baixe um aplicativo de \"Osciloscópio\" ou \"Espectrograma\" gratuito. Peça para alguém assobiar: quanto mais agudo o assobio, mais a onda se comprime (Alta frequência/Altura)."
+          }
+        ],
+        exercicios: [
+          "<strong>(Fácil)</strong> Qual propriedade do som permite diferenciar a voz do seu pai da voz da sua mãe no telefone?",
+          "<strong>(Fácil)</strong> Quando um violoncelo (instrumento grande) toca, dizemos que seu som é \"Grosso\". Fisicamente, isso se refere a qual propriedade: Altura ou Intensidade?",
+          "<strong>(Fácil)</strong> O que significam os símbolos matemáticos da música \\(p\\) e \\(ff\\) em uma partitura?",
+          "<strong>(Intermediário)</strong> Na Física, o volume é chamado de Amplitude e as notas agudas/graves são chamadas de Frequência. Faça a tradução desses termos para os códigos específicos da Música.",
+          "<strong>(Desafiador)</strong> A Sirene de uma ambulância possui uma oscilação contínua: ela fica fina, depois grossa, repetidamente, e muito alta. Descreva essa sirene usando os 4 conceitos: Altura, Duração, Intensidade e Timbre."
+        ],
+        gabarito: "<strong>Aula 4:</strong><br><strong>1.</strong> Timbre (formato e \"cor\" da onda sonora).<br><strong>2.</strong> Altura (Frequência baixa = som grave).<br><strong>3.</strong> p = piano (suave/baixo volume); ff = fortíssimo (muito alto/forte).<br><strong>4.</strong> Amplitude corresponde à Intensidade (volume); Frequência corresponde à Altura (grave/agudo).<br><strong>5.</strong> Altura (oscilação de grave para agudo continuamente), Duração (Sustentada, contínua e longa), Intensidade (Forte/alta amplitude) e Timbre (estridente, característico de sintetizadores eletrônicos de emergência)."
+      },
+      {
+        id: 5,
+        title: "Códigos da Música II (Composição e Notação)",
+        bimestre: 1,
+        paraCaderno: [
+          {
+            title: "1. Camadas da Composição Musical",
+            text: "Para organizar os sons estudados na aula passada, usamos 3 pilares matemáticos (Moderna, pág. 40 e 41):",
+            list: [
+              "<strong>Melodia:</strong> Sucessão de notas (uma após a outra). É a parte que você \"assobia\" ou \"cantarola\". Representa a Horizontalidade da música.",
+              "<strong>Harmonia:</strong> Notas tocadas <em>ao mesmo tempo</em> (Acordes). É a \"cama\", a base instrumental feita pelo violão ou teclado. Representa a Verticalidade.",
+              "<strong>Ritmo:</strong> A marcação do tempo, o pulsar, a divisão matemática das durações de notas e silêncios."
+            ]
+          },
+          {
+            title: "2. Códigos Matemáticos: O Pentagrama e Compassos",
+            text: "A Notação Musical convencional (partitura) é o código escrito oficial. Ela usa o <strong>Pentagrama</strong> (5 linhas e 4 espaços) onde a posição da \"bolinha\" define a <em>Altura</em> (Grave/Agudo).<br><br>A <strong>Fração de Compasso</strong> (\\(4/4\\), \\(3/4\\), \\(2/4\\)) organiza os tempos:<br>- O número de <strong>cima</strong> diz quantos \"tempos\" ou batidas cabem na caixinha (compasso).<br>- O número de <strong>baixo</strong> indica qual figura rítmica padrão representa 1 batida."
+          }
+        ],
+        leituras: [
+          {
+            type: "exemplo",
+            title: "A Fração do Ritmo (Exemplo Hip-Hop vs Valsa)",
+            content: "- Uma Valsa tradicional opera em \\(3/4\\) (UM, dois, três / UM, dois, três).<br>- O <em>Rap</em>, o <em>Rock</em> e o <em>Funk</em> quase sempre usam o código \\(4/4\\) (UM, dois, três, quatro), com batidas marcadas no bumbo e na caixa (Moderna, pág. 215 - O Ritmo no Rap)."
+          }
+        ],
+        exercicios: [
+          "<strong>(Fácil)</strong> Qual elemento da música representa a sucessão de notas tocadas uma após a outra, que geralmente cantamos junto?",
+          "<strong>(Fácil)</strong> O que representa o número de cima em uma fração de compasso, como \\(3/4\\)?",
+          "<strong>(Fácil)</strong> O acompanhamento feito pelos acordes do violão de um artista formam a Melodia ou a Harmonia?",
+          "<strong>(Intermediário)</strong> Sabendo que o Rap e o Funk usam geralmente a matemática do compasso 4/4, e a Valsa usa 3/4, descreva como o corpo reage de forma diferente aos pulsos (batidas) dessas duas estruturas matemáticas.",
+          "<strong>(Desafiador)</strong> A \"notação não convencional\" (Moderna pág. 115 e 118) utiliza quadrados e estrelas para representar percussão corporal em vez de pautas musicais (bolinhas e hastes). Por que um grupo de percussão corporal como o <em>Barbatuques</em> precisaria criar códigos alternativos em vez de usar o Pentagrama clássico?"
+        ],
+        gabarito: "<strong>Aula 5:</strong><br><strong>1.</strong> Melodia.<br><strong>2.</strong> Indica o número de batidas/pulsos por compasso (neste caso, 3 tempos).<br><strong>3.</strong> Harmonia.<br><strong>4.</strong> O Rap/Funk (4/4) gera uma resposta física binária e linear (foco no balanço da cabeça e bumbo/caixa simétricos). A valsa (3/4) exige do corpo um deslocamento espacial pendular e giratório contínuo.<br><strong>5.</strong> O pentagrama convencional foi projetado para notas com frequências afinadas (tonalidades específicas de instrumentos tradicionais). No Barbatuques, os sons são rústicos e percussivos (estalos, palmas, batidas no peito), necessitando de códigos gráficos geométricos intuitivos para sinalizar o ponto exato de impacto corporal."
+      },
+      {
+        id: 6,
+        title: "Códigos da Dança I (Espaço e Fatores de Laban)",
+        bimestre: 2,
+        paraCaderno: [
+          {
+            title: "1. Rudolf Laban e a Análise do Movimento",
+            text: "Na dança, o corpo é o instrumento e o movimento é o código. <strong>Rudolf Laban</strong> foi um teórico que mapeou matematicamente como o corpo humano se expressa (Moderna, págs. 91 a 94). Ele dividiu o movimento em <strong>Fatores de Esforço</strong>:",
+            list: [
+              "<strong>Espaço:</strong> Como o movimento vai do ponto A ao B. Pode ser <strong>Direto</strong> (foco linear num ponto) ou <strong>Flexível</strong> (trajetória sinuosa/indireta).",
+              "<strong>Tempo:</strong> Refere-se à atitude expressiva. Pode ser <strong>Súbito</strong> (rápido, abrupto) ou <strong>Sustentado</strong> (lento, contínuo).",
+              "<strong>Peso:</strong> Relação física com a gravidade. <strong>Firme</strong> (robusto, com resistência) ou <strong>Leve</strong> (delicado, aéreo).",
+              "<strong>Fluência (Fluxo):</strong> Como a energia transita. <strong>Livre</strong> (movimento contínuo, difícil de interromper de imediato) ou <strong>Controlada</strong> (movimento restrito, pausado/bloqueado)."
+            ]
+          }
+        ],
+        leituras: [
+          {
+            type: "exemplo",
+            title: "Codificando Movimentos Cotidianos",
+            content: "- Ato de espantar um mosquito de forma rápida: <strong>Direto, Súbito e Firme</strong>.<br>- Ato de acariciar um gato: <strong>Flexível, Sustentado e Leve</strong>.<br>- O estilo 'Robot Dance' no Hip-Hop (Moderna, pág. 209): <strong>Direto, Súbito e Fluência extremamente Controlada</strong>."
+          },
+          {
+            type: "dica",
+            title: "Dica de Mestre / Prática Coletiva",
+            content: "<strong>Prática em Sala:</strong> Ao caminhar, experimente alternar conscientemente de um Fluxo Livre (espontâneo) para um Fluxo Controlado sob comando de uma palma, sentindo a tensão instantânea nas suas articulações."
+          }
+        ],
+        exercicios: [
+          "<strong>(Fácil)</strong> Quais são os quatro fatores de esforço estruturados pelo teórico Rudolf Laban?",
+          "<strong>(Fácil)</strong> Um bailarino executa um movimento muito tenso, como se estivesse empurrando uma parede pesada. Qual é o fator de \"Peso\" utilizado: Firme ou Leve?",
+          "<strong>(Fácil)</strong> A \"Dança do Robô\" é um excelente exemplo de qual tipo de Fluência de Laban?",
+          "<strong>(Intermediário)</strong> Descreva a combinação dos fatores Tempo, Espaço e Peso para o ato de um goleiro saltando e agarrando um pênalti de surpresa.",
+          "<strong>(Desafiador)</strong> Sabendo que as emoções alteram os Fatores de Movimento (Cinesiologia), como você codificaria (usando os 4 termos de Laban) o caminhar de uma pessoa que está com extrema raiva e pressa, versus uma pessoa com depressão profunda e cansaço?"
+        ],
+        gabarito: "<strong>Aula 6:</strong><br><strong>1.</strong> Espaço, Tempo, Peso e Fluência.<br><strong>2.</strong> Firme (resistência ativa contra a gravidade).<br><strong>3.</strong> Fluência Controlada.<br><strong>4.</strong> Tempo: Súbito (urgência temporal); Espaço: Direto (linha reta até a bola); Peso: Firme (força de contenção física).<br><strong>5.</strong> Raiva/Pressa: Espaço Direto, Tempo Súbito, Peso Firme (pisada forte) e Fluência Livre (passadas impetuosas). Depressão/Cansaço: Espaço Flexível (vulnerabilidade), Tempo Sustentado (lento), Peso Leve/Sem energia (desabado) e Fluência Controlada (hesitante)."
+      },
+      {
+        id: 7,
+        title: "Códigos da Dança II (Coreografia e Estilos)",
+        bimestre: 2,
+        paraCaderno: [
+          {
+            title: "1. Coreografia e os Níveis Espaciais",
+            text: "A <strong>Coreografia</strong> é o código de registro e planejamento do movimento na dança (equivalente à partitura musical). O coreógrafo organiza as posições corporais explorando os <strong>Níveis Espaciais</strong> (Moderna, pág. 166):",
+            list: [
+              "<strong>Nível Alto:</strong> Saltos, saltitos, passos na ponta do pé e suspensões.",
+              "<strong>Nível Médio:</strong> Agachamentos parciais, caminhadas com joelhos semi-flexionados (pliés).",
+              "<strong>Nível Baixo:</strong> Contato direto com o solo, rolamentos, quedas e apoios rasteiros."
+            ]
+          },
+          {
+            title: "2. Dança Clássica vs. Contemporânea",
+            text: "Os códigos estéticos das vertentes de dança refletem suas épocas históricas (Moderna, págs. 46 e 47):",
+            list: [
+              "<strong>Balé Clássico:</strong> Código estrito de linhagem aristocrática. Busca uma ilusão de leveza aérea desafiando a gravidade (pontas dos pés), exigindo verticalidade estrita e simetria absoluta.",
+              "<strong>Dança Contemporânea:</strong> Ruptura de amarras acadêmicas. Integra os pés descalços, utiliza a queda e o peso real do corpo, busca a assimetria e aborda conflitos existenciais."
+            ]
+          }
+        ],
+        leituras: [
+          {
+            type: "exemplo",
+            title: "Ruptura de Código - \"Danza Voluminosa\"",
+            content: "A abertura da Unidade 2 (Moderna, pág. 62) traz imagens do coletivo cubano <em>Danza Voluminosa</em>. O grupo reconfigura o cânone de corpos magros tradicionalmente impostos pela dança clássica, provando que a flexibilidade, a estesia e a fluência artística independem de restrições corporais padronizadas."
+          }
+        ],
+        exercicios: [
+          "<strong>(Fácil)</strong> O que é uma coreografia?",
+          "<strong>(Fácil)</strong> Um movimento onde a pessoa se arrasta e rola no tatame está sendo executado em qual nível espacial?",
+          "<strong>(Fácil)</strong> Cite uma diferença visual e técnica gritante entre o Balé Clássico e a Dança Contemporânea.",
+          "<strong>(Intermediário)</strong> O <em>Voguing</em> (Dança do movimento Ballroom, Moderna pág. 166) possui um passo chamado <em>Duckwalk</em> (andar de pato, agachado). Em qual nível espacial esse movimento é predominantemente realizado e o que ele exige do corpo?",
+          "<strong>(Desafiador)</strong> A dança \"Break\" (do Hip-Hop) nasceu em resposta a tensões sociais no Bronx e costuma explorar amplamente o Nível Baixo (giros no chão e freezes). Como a escolha desse nível espacial extremo e rústico (chão das ruas) reflete um contraponto à postura aristocrática \"Nível Alto\" (voos e pontas) do Balé Clássico?"
+        ],
+        gabarito: "<strong>Aula 7:</strong><br><strong>1.</strong> É o plano ou código escrito/prático que estrutura os movimentos de uma composição de dança no tempo e espaço.<br><strong>2.</strong> Nível Baixo.<br><strong>3.</strong> O Balé Clássico usa calçados especiais (sapatilhas de ponta) para desafiar a gravidade e foca na verticalidade rígida; a Dança Contemporânea preza pela liberdade dos pés descalços, explora o peso e aceita o chão como parte integrante da cena.<br><strong>4.</strong> Nível Baixo. Ele exige excelente equilíbrio, força muscular nas pernas e alta flexibilidade nas articulações dos joelhos.<br><strong>5.</strong> O Nível Baixo no Break representa o solo periférico de asfalto que servia de palco urbano para os jovens marginalizados. Enquanto o \"Nível Alto\" aristocrático dos teatros clássicos pretendia uma desconexão celestial da realidade terrena, o Break impõe a realidade física do chão de concreto como território de resistência, reafirmação social e arte autêntica."
+      },
+      {
+        id: 8,
+        title: "Códigos do Teatro I (Atuação e Dramaturgia)",
+        bimestre: 2,
+        paraCaderno: [
+          {
+            title: "1. A Dramaturgia e a Ação Física",
+            text: "A linguagem teatral ancora-se no Ator e na <strong>Dramaturgia</strong> (o roteiro de ações/texto). No século XX, o mestre russo <strong>Stanislávski</strong> decodificou a atuação realista através das <strong>Ações Físicas</strong> (Moderna, pág. 86):",
+            list: [
+              "<strong>Ação Física:</strong> Um movimento mecânico no palco só se torna cena se tiver uma motivação interna (o <em>Porquê</em>) e um objetivo pragmático (o <em>Para quê</em>). Ex: Beber água para simular calma perante um interrogatório."
+            ]
+          },
+          {
+            title: "2. Biomecânica e o \"Otkaz\"",
+            text: "Outro encenador russo, <strong>Vsevolod Meyerhold</strong>, criou a <strong>Biomecânica Teatral</strong> (Moderna, pág. 89), focando na precisão corporal exata dos atores, inspirando-se em movimentos de operários industriais:",
+            list: [
+              "<strong>Otkaz (A Recusa):</strong> É o código preparatório corporal. Toda ação cênica de força exige um movimento em direção oposta antes de sua execução para acumular energia mecânica e reter a atenção do espectador. Ex: Flexionar os joelhos no chão antes de saltar."
+            ]
+          }
+        ],
+        leituras: [
+          {
+            type: "exemplo",
+            title: "Teatro Mudo - Expressando Códigos",
+            content: "Imagine a rubrica dramática simples: <em>\"(Ele entra e senta)\"</em>. Sem qualquer diálogo oral, o ator adota o código corporal: caminha arrastando os calcanhares (Peso firme, Tempo sustentado), vigia os cantos com os olhos (Objetivo: fuga/pânico) e cai sobre o assento. A narrativa está integralmente transmitida apenas pelas ações físicas intencionais."
+          }
+        ],
+        exercicios: [
+          "<strong>(Fácil)</strong> O que o dramaturgo faz no processo de criação de uma peça teatral?",
+          "<strong>(Fácil)</strong> Na teoria de Stanislávski, o que diferencia um \"movimento banal\" de uma \"Ação Física\"?",
+          "<strong>(Fácil)</strong> O que significa a técnica do \"Otkaz\" introduzida por Meyerhold? Dê um exemplo do dia a dia.",
+          "<strong>(Intermediário)</strong> Se um personagem precisa expressar \"Ansiedade extrema para abrir uma carta\", escreva como ele executaria fisicamente essa ação, dividindo em etapas claras (usando a ideia de Ação Física intencional).",
+          "<strong>(Desafiador)</strong> A Biomecânica de Meyerhold surgiu na mesma época da industrialização e linhas de montagem das fábricas. Relacione a exigência do corpo do ator na Biomecânica teatral (ritmo e precisão) com o comportamento dos operários nas fábricas do início do século XX."
+        ],
+        gabarito: "<strong>Aula 8:</strong><br><strong>1.</strong> Escreve o texto dramatúrgico, define os diálogos e sugere orientações cênicas (rubricas) que serão interpretadas pelo elenco.<br><strong>2.</strong> A intencionalidade psicológica por trás do gesto físico (o Porquê e o Para quê).<br><strong>3.</strong> O movimento oposto de preparação antes da ação real. Ex: O ato de puxar o braço para trás para ganhar impulso antes de arremessar um objeto de papel.<br><strong>4.</strong> Etapa 1: Segura a carta olhando em volta com as mãos trêmulas (ação de verificar perigo). Etapa 2: Aplica o Otkaz (afasta o envelope bruscamente como se hesitasse diante de más notícias). Etapa 3: Rasga o papel de modo rápido e reto (Intensidade forte).<br><strong>5.</strong> Sob a influência do Taylorismo industrial (otimização de movimentos nas linhas de fabricação), Meyerhold pretendia lapidar o ator como uma \"máquina cênica perfeita\". O corpo do ator biomecânico adquire uma métrica precisa, eliminando desvios individuais emotivos a favor de uma expressão rítmica coletiva, refletindo no palco a modernidade mecânica operária."
+      },
+      {
+        id: 9,
+        title: "Códigos do Teatro II (Espaço Cênico e Estética Visuais)",
+        bimestre: 2,
+        paraCaderno: [
+          {
+            title: "1. O Espaço Cênico e os Tipos de Palco",
+            text: "A arquitetura do espaço define diretamente a proximidade com o público e o código dramático (Moderna, pág. 55):",
+            list: [
+              "<strong>Teatro Grego/Arena:</strong> Configuração semicircular ou circular ao redor do centro de encenação, gerando rituais comunitários e visualização completa do ator.",
+              "<strong>Palco Italiano:</strong> Formato clássico frontal com moldura (boca de cena), ocultando as coxias por cortinas. Estabelece a convenção da <strong>Quarta Parede</strong> (barreira invisível que separa o palco e a plateia).",
+              "<strong>Teatro Elisabetano:</strong> Palco elevado e projetado para a frente da plateia, sem recursos de cenografias realistas pesadas."
+            ]
+          },
+          {
+            title: "2. Teatro Épico e os Bastidores da Cena",
+            text: "O dramaturgo alemão <strong>Bertolt Brecht</strong> teorizou o <strong>Teatro Épico</strong>, combatendo o transe ilusório e passivo do espectador tradicional:",
+            list: [
+              "<strong>Efeito de Distanciamento (Estranhamento):</strong> Uso deliberado de dispositivos técnicos expostos (refletores visíveis, placas indicadoras, quebra de personagens falando diretamente com a audiência) para dissolver a Quarta Parede e provocar engajamento social crítico."
+            ]
+          }
+        ],
+        leituras: [
+          {
+            type: "exemplo",
+            title: "Elementos Técnicos (O Código Visual do Teatro)",
+            content: "- <strong>Cenografia:</strong> Localiza o tempo e espaço da trama.<br>- <strong>Iluminação:</strong> Direciona o foco emocional (ex: luz fria remete ao isolamento ou distanciamento).<br>- <strong>Figurino e Maquiagem:</strong> Codificam a idade, o estrato socioeconômico e o momento dramático do personagem."
+          }
+        ],
+        exercicios: [
+          "<strong>(Fácil)</strong> Qual é o formato do chamado Palco Italiano? Como o público se posiciona nele?",
+          "<strong>(Fácil)</strong> O que é a famosa \"quarta parede\" no teatro convencional?",
+          "<strong>(Fácil)</strong> Quais elementos formam a \"caracterização\" visual de um personagem no palco, ajudando o público a codificar quem ele é?",
+          "<strong>(Intermediário)</strong> Na dramaturgia Elisabetana (da época de Shakespeare), praticamente não havia móveis ou grandes cenários de madeira e pano no palco. Como o autor e os atores resolviam o problema para que o público soubesse que a cena era numa floresta à noite?",
+          "<strong>(Desafiador)</strong> Brecht quebrava a imersão do público de propósito, deixando os refletores à mostra e mandando os atores narrarem as próprias ações. Por que ele acreditava que tirar a emoção pura e causar esse \"distanciamento\" era necessário para fazer um Teatro Político?"
+        ],
+        gabarito: "<strong>Aula 9:</strong><br><strong>1.</strong> Palco frontal fechado em formato de caixa retangular, onde o público se posiciona estritamente à frente dos atores.<br><strong>2.</strong> É a convenção imaginária que fecha o palco como se houvesse uma parede separando a encenação da plateia.<br><strong>3.</strong> Figurino, Maquiagem, Adereços e Máscaras corporais.<br><strong>4.</strong> Os códigos eram inseridos por meio de falas descritivas na própria dramaturgia dos personagens (por exemplo: \"Quão escura e sombria é esta noite neste bosque!\"), ativando a imaginação do espectador.<br><strong>5.</strong> Brecht defendia que a catarse emotiva pura gerava conformismo passivo (escapismo). Ao distanciar a ação e expor os bastidores técnicos, o público era mantido consciente e racional, forçando-o a raciocinar sobre os problemas econômicos apresentados na cena e agir para transformar a realidade após a sessão."
+      },
+      {
+        id: 10,
+        title: "Integração Audiovisual e Arte Contemporânea",
+        bimestre: 2,
+        paraCaderno: [
+          {
+            title: "1. Performance e Happening: Quebrando Códigos",
+            text: "Na Arte Contemporânea, as fronteiras rígidas entre categorias artísticas tradicionais se desfazem (Moderna, págs. 103 e 104):",
+            list: [
+              "<strong>Performance:</strong> Apresentação estruturada em que o próprio corpo do artista atua como matéria-prima de expressão, testando limites físicos no espaço.",
+              "<strong>Happening (Acontecimento):</strong> Proposta interativa efêmera e urbana que convoca a participação direta e espontânea dos transeuntes. Caso o público não participe, o projeto não se consome."
+            ]
+          },
+          {
+            title: "2. O Código do Cinema (Audiovisual)",
+            text: "O audiovisual cruza linguagens integrando fotografia, atuação e som, organizando nossa percepção por meio do sistema de <strong>Planos e Ângulos de Câmera</strong> (Moderna, págs. 328-330):",
+            list: [
+              "<strong>Plano Geral (Aberto):</strong> Expõe o ambiente por inteiro. Codifica grandiosidade física ou o isolamento existencial do personagem.",
+              "<strong>Plano Médio / Americano:</strong> Enquadra do joelho ou da cintura para cima, priorizando o diálogo dinâmico e o movimento físico das ações.",
+              "<strong>Close-up (Fechado):</strong> Captura detalhes micro do rosto ou de objetos. Centraliza a carga de estesia íntima.",
+              "<strong>Ângulos Visuais:</strong> <em>Plongée</em> (câmera voltada de cima para baixo — diminui a estatura do personagem) e <em>Contra-Plongée</em> (câmera posicionada de baixo para cima — confere poder visual)."
+            ]
+          }
+        ],
+        leituras: [
+          {
+            type: "exemplo",
+            title: "Análise Cinematográfica Direta",
+            content: "Se uma cena retrata um combatente prostrado após a batalha, o diretor pode optar por capturá-lo em <em>Plongée</em> (câmera alta de cima para baixo) sob um Plano Geral. O código técnico projeta visualmente as sensações de vulnerabilidade e solidão do herói sem precisar de explicações literais."
+          }
+        ],
+        exercicios: [
+          "<strong>(Fácil)</strong> Em qual estilo de arte contemporânea o público se torna peça obrigatória para que a obra funcione e acabe (é imprevisível): Performance ou Happening?",
+          "<strong>(Fácil)</strong> O que a câmera em Close-up foca e qual sensação ela geralmente tenta transmitir?",
+          "<strong>(Fácil)</strong> Ao utilizar o ângulo \"Contra-plongée\" (câmera baixa filmando para cima), como o personagem parece diante do espectador?",
+          "<strong>(Intermediário)</strong> Se você fosse gravar um vídeo para as redes sociais protestando contra o desmatamento na sua rua, qual \"Plano\" de câmera (Geral, Médio ou Close-up) você usaria para provar o tamanho da área destruída? Justifique.",
+          "<strong>(Desafiador - Síntese Anual)</strong> Escolha um videoclipe de música (ou cena de filme) que você goste. Utilizando TUDO o que aprendemos, analise a cena apontando: 1) Um código sonoro ou musical (ex: ritmo agressivo, timbre); 2) Um código corporal/dança (nível espacial ou fluência de Laban); 3) Um código de câmera (Planos/Ângulos); 4) Conclua como esses 3 signos se fundem para criar a \"Estesia\" (emoção) daquela obra."
+        ],
+        gabarito: "<strong>Aula 10:</strong><br><strong>1.</strong> Happening.<br><strong>2.</strong> Foca nos rostos ou em detalhes muito pequenos para transmitir intensidade psicológica e gerar intimidade empática imediata com o espectador.<br><strong>3.</strong> Apresenta o personagem como superior, intimidador, monumental ou detentor de autoridade na cena.<br><strong>4.</strong> Plano Geral. Ele é o único enquadramento capaz de capturar a amplitude espacial necessária para comprovar a extensão física da devastação ambiental na rua.<br><strong>5.</strong> Resposta integradora pessoal. O aluno deve associar de forma satisfatória os elementos estudados: descrevendo as variações de ritmo (partituras/properties sonoras), posicionando o movimento corporal do artista de acordo com a ótica de Laban/Níveis, detalhando o corte de câmera adotado pelo diretor e explicando a experiência estética global produzida na audiência."
+      }
+    ];
+
+    // --- VARIÁVEIS DE ESTADO GLOBAL DO ALUNO ---
+    let currentClassIndex = 0;
+    let classStates = [];
+
+    // --- INICIALIZAÇÃO DE SISTEMA ---
+    function initApp() {
+      const savedStates = localStorage.getItem('etec_arte_states_v2');
+      const savedIndex = localStorage.getItem('etec_arte_current_index_v2');
+
+      if (savedStates) {
+        try {
+          classStates = JSON.parse(savedStates);
+        } catch (e) {
+          resetToDefaultStates();
+        }
+      } else {
+        resetToDefaultStates();
+      }
+
+      if (savedIndex !== null) {
+        currentClassIndex = parseInt(savedIndex);
+      } else {
+        currentClassIndex = 0;
+      }
+
+      renderSidebar();
+      renderCurrentClass();
+      updateProgressBar();
+    }
+
+    function resetToDefaultStates() {
+      classStates = classesData.map((cls, idx) => ({
+        unlocked: idx === 0,
+        step: 1, // 1: Teoria, 2: Leituras, 3: Exercicios, 4: Concluido
+        readStatus: Array(cls.leituras.length).fill(false),
+        exerciciosCopied: false,
+        completed: false
+      }));
+      saveProgress();
+    }
+
+    function saveProgress() {
+      localStorage.setItem('etec_arte_states_v2', JSON.stringify(classStates));
+      localStorage.setItem('etec_arte_current_index_v2', currentClassIndex);
+    }
+
+    function updateProgressBar() {
+      const totalClasses = classesData.length;
+      const completedCount = classStates.filter(c => c.completed).length;
+      const percent = Math.round((completedCount / totalClasses) * 100);
+
+      document.getElementById('global-progress-bar').style.width = percent + '%';
+      document.getElementById('global-progress-text').innerText = percent + '% Concluído';
+    }
+
+    // --- RENDERIZAÇÃO DA SIDEBAR (NAVEGAÇÃO) ---
+    function renderSidebar() {
+      const desktopNav = document.getElementById('class-list-navigation');
+      const mobileNav = document.getElementById('class-list-navigation-mobile');
+      
+      let html = '';
+
+      classesData.forEach((cls, idx) => {
+        const state = classStates[idx];
+        const isActive = idx === currentClassIndex;
+        
+        let statusIcon = '<i class="fa-solid fa-lock text-slate-300"></i>';
+        let bgStyle = 'bg-slate-50 text-slate-400 border-transparent cursor-not-allowed';
+        let clickEvent = '';
+
+        if (state.completed) {
+          statusIcon = '<i class="fa-solid fa-circle-check text-emerald-500"></i>';
+          bgStyle = isActive 
+            ? 'bg-red-50 text-red-900 font-semibold border-red-600 shadow-sm border-l-4' 
+            : 'bg-white hover:bg-slate-100 text-slate-700 border-l-4 border-slate-300';
+          clickEvent = `onclick="changeClass(${idx})"`;
+        } else if (state.unlocked) {
+          statusIcon = '<i class="fa-solid fa-circle-play text-red-500 animate-pulse"></i>';
+          bgStyle = isActive 
+            ? 'bg-red-50 text-red-900 font-semibold border-red-600 shadow-sm border-l-4' 
+            : 'bg-white hover:bg-slate-100 text-slate-700 border-l-4 border-transparent';
+          clickEvent = `onclick="changeClass(${idx})"`;
+        }
+
+        html += `
+          <button ${clickEvent} class="w-full text-left p-3 rounded-lg text-xs transition duration-200 border-y border-r border-slate-100 flex items-center justify-between gap-2 ${bgStyle}">
+            <div class="flex flex-col">
+              <span class="font-bold">Bimestre ${cls.bimestre} • Aula ${cls.id}</span>
+              <span class="truncate max-w-[190px] font-normal text-slate-500 mt-0.5">${cls.title}</span>
+            </div>
+            <div class="shrink-0 text-sm">
+              ${statusIcon}
+            </div>
+          </button>
+        `;
+      });
+
+      desktopNav.innerHTML = html;
+      mobileNav.innerHTML = html;
+    }
+
+    function changeClass(idx) {
+      if (classStates[idx].unlocked || classStates[idx].completed) {
+        currentClassIndex = idx;
+        saveProgress();
+        renderSidebar();
+        renderCurrentClass();
+        // Fecha menu mobile se estiver aberto
+        document.getElementById('mobile-sidebar').classList.add('hidden');
+      }
+    }
+
+    // --- RENDERIZAÇÃO DA AULA ATIVA ---
+    function renderCurrentClass() {
+      const mainContent = document.getElementById('main-content');
+      const cls = classesData[currentClassIndex];
+      const state = classStates[currentClassIndex];
+
+      // Definição dos estados visuais das Etapas (Stepper)
+      const isStep1Active = state.step === 1;
+      const isStep1Done = state.step > 1;
+      const isStep2Active = state.step === 2;
+      const isStep2Done = state.step > 2;
+      const isStep3Active = state.step === 3;
+      const isStep3Done = state.step > 3 || state.completed;
+
+      let html = `
+        <div class="fade-enter fade-enter-active bg-white border border-slate-200 rounded-xl shadow-sm p-6 sm:p-8 space-y-8">
+          
+          <!-- Cabeçalho Interno da Aula -->
+          <div class="border-b border-slate-100 pb-5">
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="bg-red-100 text-red-800 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">
+                1º e 2º Bimestres (Condensado)
+              </span>
+              <span class="bg-slate-100 text-slate-700 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">
+                Aula ${cls.id} de 10
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight leading-snug">
+              ${cls.title}
+            </h2>
+          </div>
+
+          <!-- INDICADOR VISUAL DO STEPPER (MÉTRICA DO ALUNO) -->
+          <div class="grid grid-cols-3 gap-2 border-b border-slate-100 pb-6 text-center text-xs font-semibold">
+            <div class="flex flex-col items-center gap-1.5 ${isStep1Active ? 'text-blue-600' : isStep1Done ? 'text-emerald-600' : 'text-slate-300'}">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center ${isStep1Active ? 'bg-blue-100 ring-2 ring-blue-600 ring-offset-2' : isStep1Done ? 'bg-emerald-100' : 'bg-slate-100'} text-sm">
+                ${isStep1Done ? '<i class="fa-solid fa-check"></i>' : '1'}
+              </div>
+              <span class="hidden sm:inline">Teoria Caderno</span>
+              <span class="sm:hidden text-[10px]">Cópia</span>
+            </div>
+            <div class="flex flex-col items-center gap-1.5 ${isStep2Active ? 'text-amber-600' : isStep2Done ? 'text-emerald-600' : 'text-slate-300'}">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center ${isStep2Active ? 'bg-amber-100 ring-2 ring-amber-500 ring-offset-2' : isStep2Done ? 'bg-emerald-100' : 'bg-slate-100'} text-sm">
+                ${isStep2Done ? '<i class="fa-solid fa-check"></i>' : '2'}
+              </div>
+              <span class="hidden sm:inline">Análise \& Leituras</span>
+              <span class="sm:hidden text-[10px]">Análise</span>
+            </div>
+            <div class="flex flex-col items-center gap-1.5 ${isStep3Active ? 'text-purple-600' : isStep3Done ? 'text-emerald-600' : 'text-slate-300'}">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center ${isStep3Active ? 'bg-purple-100 ring-2 ring-purple-500 ring-offset-2' : isStep3Done ? 'bg-emerald-100' : 'bg-slate-100'} text-sm">
+                ${isStep3Done ? '<i class="fa-solid fa-check"></i>' : '3'}
+              </div>
+              <span class="hidden sm:inline">Exercícios \& Gabarito</span>
+              <span class="sm:hidden text-[10px]">Exercícios</span>
+            </div>
+          </div>
+
+          <!-- ==========================================
+               ETAPA 1: CÓPIA DA TEORIA (CAIXAS AZUIS)
+               ========================================== -->
+          <section class="space-y-4">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">1</span>
+              <h3 class="text-base font-bold text-slate-800">Cópia da Teoria de Arte</h3>
+            </div>
+            <p class="text-xs text-slate-500 italic">Copie os conceitos abaixo em seu caderno de Arte. A reprodução correta vale visto de participação.</p>
+            
+            <div class="space-y-6">
+              ${cls.paraCaderno.map(box => `
+                <div class="bg-sky-50/50 border-l-4 border-sky-600 rounded-r-xl p-5 shadow-sm space-y-3">
+                  <h4 class="text-sky-950 font-bold text-base flex items-center gap-2">
+                    <i class="fa-solid fa-book-open text-sky-600 text-sm"></i>
+                    ${box.title} <span class="text-xs font-normal text-sky-700">(Para o Caderno <i class="fa-solid fa-check"></i>)</span>
+                  </h4>
+                  <p class="text-sm text-slate-700 leading-relaxed">${box.text}</p>
+                  ${box.list ? `
+                    <ul class="list-disc list-inside text-sm text-slate-700 space-y-1.5 pl-2 leading-relaxed">
+                      ${box.list.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                  ` : ''}
+                  
+                  ${box.extraBox ? `
+                    <div class="bg-emerald-50/50 border-2 border-dashed border-emerald-500 rounded-xl p-4 my-3 text-sm">
+                      <div class="text-emerald-950">${box.extraBox.content}</div>
+                    </div>
+                  ` : ''}
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Botões Etapa 1 -->
+            <div class="pt-4 flex justify-end">
+              ${isStep1Active 
+                ? `<button onclick="openVistoModal()" class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-semibold shadow-sm hover:shadow transition flex items-center justify-center gap-2">
+                     <i class="fa-solid fa-stamp"></i> Concluí a cópia da teoria
+                   </button>`
+                : `<div class="w-full sm:w-auto px-4 py-2 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-lg text-xs font-semibold flex items-center justify-center gap-2">
+                     <i class="fa-solid fa-circle-check"></i> Cópia realizada e visto registrado
+                   </div>`
+              }
+            </div>
+          </section>
+
+          <!-- ==========================================
+               ETAPA 2: LEITURA E ANÁLISE (CAIXAS MAGENTA E AMARELA)
+               ========================================== -->
+          <section class="space-y-4 pt-6 border-t border-slate-100 ${!isStep1Done ? 'opacity-45 pointer-events-none select-none relative' : ''}">
+            ${!isStep1Done ? `
+              <div class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/70 backdrop-blur-[1px] rounded-xl text-center p-4">
+                <i class="fa-solid fa-lock text-slate-400 text-3xl mb-2"></i>
+                <h4 class="text-sm font-bold text-slate-800">Seção Bloqueada</h4>
+                <p class="text-xs text-slate-500 max-w-xs mt-1">Copie a teoria acima e marque a conclusão para habilitar as leituras obrigatórias.</p>
+              </div>
+            ` : ''}
+            
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xs font-bold">2</span>
+              <h3 class="text-base font-bold text-slate-800">Leituras Obrigatórias (Análise \& Ampliação)</h3>
+            </div>
+            <p class="text-xs text-slate-500 italic">As caixas abaixo NÃO são necessárias de copiar. Apenas leia e reflita com atenção.</p>
+
+            <div class="space-y-6">
+              ${cls.leituras.map((leitura, lIdx) => {
+                const isChecked = state.readStatus[lIdx];
+                const boxColorClass = leitura.type === 'exemplo' 
+                  ? 'bg-fuchsia-50/50 border-l-4 border-fuchsia-600 rounded-r-xl' 
+                  : 'bg-amber-50/50 border-l-4 border-amber-500 rounded-r-xl';
+                const titleColorClass = leitura.type === 'exemplo' ? 'text-fuchsia-950' : 'text-amber-950';
+                const iconClass = leitura.type === 'exemplo' ? 'fa-solid fa-chart-line text-fuchsia-600' : 'fa-solid fa-lightbulb text-amber-500';
+
+                return `
+                  <div class="${boxColorClass} p-5 shadow-sm space-y-3">
+                    <h4 class="font-bold text-sm flex items-center gap-2 ${titleColorClass}">
+                      <i class="${iconClass}"></i>
+                      ${leitura.title}
+                    </h4>
+                    <div class="text-sm text-slate-700 leading-relaxed">${leitura.content}</div>
+                    
+                    <!-- Checkbox de Validação de Leitura -->
+                    <div class="mt-4 pt-3 border-t border-slate-200/60">
+                      <label class="flex items-start gap-2.5 cursor-pointer text-xs font-medium text-slate-600 hover:text-slate-950 select-none">
+                        <input type="checkbox" 
+                               onchange="toggleReading(${currentClassIndex}, ${lIdx})" 
+                               ${isChecked ? 'checked' : ''} 
+                               ${!isStep2Active ? 'disabled' : ''}
+                               class="w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500 mt-0.5 accent-emerald-600">
+                        <span>Li e compreendi este conteúdo adicional.</span>
+                      </label>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            <!-- Botão de avanço da Etapa 2 -->
+            <div class="pt-4 flex justify-end">
+              ${isStep2Active 
+                ? `<button id="btn-advance-step2" onclick="advanceStep2()" 
+                           class="w-full sm:w-auto px-6 py-2.5 bg-amber-500 hover:bg-amber-600 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-lg text-sm font-semibold shadow-sm hover:shadow transition flex items-center justify-center gap-2">
+                     Ir para Exercícios <i class="fa-solid fa-arrow-right"></i>
+                   </button>`
+                : isStep2Done 
+                  ? `<div class="w-full sm:w-auto px-4 py-2 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-lg text-xs font-semibold flex items-center justify-center gap-2">
+                       <i class="fa-solid fa-circle-check"></i> Análise e leituras concluídas
+                     </div>`
+                  : ''
+              }
+            </div>
+          </section>
+
+          <!-- ==========================================
+               ETAPA 3: EXERCÍCIOS E GABARITO (CAIXA CINZA)
+               ========================================== -->
+          <section class="space-y-4 pt-6 border-t border-slate-100 ${!isStep2Done ? 'opacity-45 pointer-events-none select-none relative' : ''}">
+            ${!isStep2Done ? `
+              <div class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/70 backdrop-blur-[1px] rounded-xl text-center p-4">
+                <i class="fa-solid fa-lock text-slate-400 text-3xl mb-2"></i>
+                <h4 class="text-sm font-bold text-slate-800">Seção Bloqueada</h4>
+                <p class="text-xs text-slate-500 max-w-xs mt-1">Conclua todas as leituras acima antes de prosseguir aos exercícios.</p>
+              </div>
+            ` : ''}
+
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xs font-bold">3</span>
+              <h3 class="text-base font-bold text-slate-800">Exercícios Teóricos \& Práticos</h3>
+            </div>
+            <p class="text-xs text-slate-500 italic">Copie os enunciados em seu caderno e rascunhe as respostas com lápis.</p>
+
+            <div class="space-y-4 bg-slate-50 border border-slate-200/70 rounded-xl p-5">
+              <ol class="list-decimal list-inside text-sm text-slate-700 space-y-3.5 leading-relaxed">
+                ${cls.exercicios.map(ex => `<li>${ex}</li>`).join('')}</ol>
+            </div>
+
+            <!-- Interação com Exercícios -->
+            <div class="pt-4 space-y-4">
+              ${isStep3Active 
+                ? `
+                  <div class="flex flex-col sm:flex-row justify-end items-center gap-3">
+                    ${!state.exerciciosCopied 
+                      ? `<button onclick="markExerciciosCopied()" class="w-full sm:w-auto px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-sm font-semibold shadow-sm transition">
+                           Terminei de copiar os exercícios
+                         </button>`
+                      : `
+                        <div class="w-full flex flex-col sm:flex-row justify-between items-center bg-emerald-50 border border-emerald-200 p-4 rounded-lg w-full gap-3 text-center sm:text-left">
+                          <div class="text-xs text-emerald-800">
+                            <span class="font-bold flex items-center justify-center sm:justify-start gap-1">
+                              <i class="fa-solid fa-lightbulb"></i> Tente responder no caderno!
+                            </span> 
+                            Confira as análises textuais no gabarito oficial para validar seu conhecimento.
+                          </div>
+                          <button onclick="openGabaritoModal()" class="w-full sm:w-auto px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow-sm transition whitespace-nowrap">
+                            <i class="fa-solid fa-key"></i> Abrir Gabarito desta Aula
+                          </button>
+                        </div>
+                      `
+                    }
+                  </div>
+                `
+                : isStep3Done 
+                  ? `
+                    <div class="bg-emerald-50/40 border border-emerald-100 p-6 rounded-xl text-center space-y-3">
+                      <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-xl">
+                        <i class="fa-solid fa-trophy"></i>
+                      </div>
+                      <h4 class="text-sm font-bold text-slate-800">Aula Concluída com Sucesso!</h4>
+                      <p class="text-xs text-slate-500 max-w-sm mx-auto">Você completou todas as etapas, garantiu os vistos do caderno e analisou o gabarito.</p>
+                      
+                      ${currentClassIndex < classesData.length - 1 
+                        ? `<button onclick="advanceToNextClass()" class="mt-2 inline-flex items-center gap-2 px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold shadow transition">
+                             Avançar para a Aula ${cls.id + 1} <i class="fa-solid fa-angles-right"></i>
+                           </button>`
+                        : `<p class="text-xs font-bold text-emerald-700 mt-2">🎉 Parabéns! Você concluiu a trilha anual condensada de Arte!</p>`
+                      }
+                    </div>
+                  `
+                  : ''
+              }
+            </div>
+          </section>
+
+        </div>
+      `;
+
+      mainContent.innerHTML = html;
+      runMathJax();
+      updateStep2ButtonState();
+    }
+
+    // --- CONTROLES DE FLUXO E ESTADOS INTERATIVOS ---
+
+    // Etapa 1: Validação do Visto do Caderno
+    function openVistoModal() {
+      document.getElementById('modal-visto').classList.remove('hidden');
+      document.getElementById('modal-visto').classList.add('flex');
+    }
+
+    function closeVistoModal(confirmVisto) {
+      document.getElementById('modal-visto').classList.add('hidden');
+      document.getElementById('modal-visto').classList.remove('flex');
+      
+      if (confirmVisto) {
+        classStates[currentClassIndex].step = 2;
+        saveProgress();
+        renderSidebar();
+        renderCurrentClass();
+      }
+    }
+
+    // Etapa 2: Checkboxes de Leitura Obrigatória
+    function toggleReading(clsIdx, readingIdx) {
+      classStates[clsIdx].readStatus[readingIdx] = !classStates[clsIdx].readStatus[readingIdx];
+      saveProgress();
+      updateStep2ButtonState();
+    }
+
+    function updateStep2ButtonState() {
+      const state = classStates[currentClassIndex];
+      const btn = document.getElementById('btn-advance-step2');
+      if (!btn) return;
+
+      const allChecked = state.readStatus.every(status => status === true);
+      btn.disabled = !allChecked;
+    }
+
+    function advanceStep2() {
+      classStates[currentClassIndex].step = 3;
+      saveProgress();
+      renderSidebar();
+      renderCurrentClass();
+    }
+
+    // Etapa 3: Cópia de Exercícios e Visualização de Gabarito
+    function markExerciciosCopied() {
+      classStates[currentClassIndex].exerciciosCopied = true;
+      saveProgress();
+      renderCurrentClass();
+    }
+
+    function openGabaritoModal() {
+      const cls = classesData[currentClassIndex];
+      const contentDiv = document.getElementById('gabarito-modal-content');
+      
+      contentDiv.innerHTML = `
+        <div class="bg-gray-50 border border-slate-200 rounded-xl p-5 mb-4 shadow-sm text-sm space-y-3">
+          <p class="leading-relaxed text-slate-700">${cls.gabarito}</p>
+        </div>
+      `;
+      
+      document.getElementById('modal-gabarito').classList.remove('hidden');
+      document.getElementById('modal-gabarito').classList.add('flex');
+      runMathJax();
+    }
+
+    function closeGabaritoModal(finalizeClass) {
+      document.getElementById('modal-gabarito').classList.add('hidden');
+      document.getElementById('modal-gabarito').classList.remove('flex');
+      
+      if (finalizeClass) {
+        classStates[currentClassIndex].step = 4;
+        classStates[currentClassIndex].completed = true;
+        
+        // Desbloqueia a próxima aula se aplicável
+        if (currentClassIndex < classesData.length - 1) {
+          classStates[currentClassIndex + 1].unlocked = true;
+        }
+
+        saveProgress();
+        renderSidebar();
+        renderCurrentClass();
+        updateProgressBar();
+      }
+    }
+
+    // Transição de Aula Completa
+    function advanceToNextClass() {
+      if (currentClassIndex < classesData.length - 1) {
+        currentClassIndex += 1;
+        saveProgress();
+        renderSidebar();
+        renderCurrentClass();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // --- DIRETRIZES AUXILIARES DE UI ---
+    
+    // Suporte do MathJax para atualizações parciais do DOM
+    function runMathJax() {
+      if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
+        window.MathJax.typesetPromise().catch(err => console.log('MathJax error:', err));
+      }
+    }
+
+    // Menu Mobile
+    function toggleMobileMenu() {
+      const sidebar = document.getElementById('mobile-sidebar');
+      if (sidebar.classList.contains('hidden')) {
+        sidebar.classList.remove('hidden');
+      } else {
+        sidebar.classList.add('hidden');
+      }
+    }
+
+    // Reinício do Progresso
+    function confirmResetProgress() {
+      const conf = confirm("Tem certeza de que deseja apagar os vistos do professor, leituras lidas e reiniciar seu progresso de Arte do zero?");
+      if (conf) {
+        localStorage.removeItem('etec_arte_states_v2');
+        localStorage.removeItem('etec_arte_current_index_v2');
+        currentClassIndex = 0;
+        resetToDefaultStates();
+        initApp();
+        document.getElementById('mobile-sidebar').classList.add('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Inicializar o Web App ao carregar
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
